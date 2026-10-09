@@ -108,12 +108,42 @@ OncoAgent/
 │   └── README.md
 │
 ├── results/
-│
+│    ├── validation_run_results
 ├── tests/
 │
 ├── requirements.txt
 └── README.md
 ```
+
+## Real Data Validation
+
+As an initial validation, I applied the project's expression-analysis workflow to real TCGA-BRCA breast cancer data.
+
+Example research question
+
+* Which genes show different expression between ER-positive and ER-negative breast tumours? *
+
+Cohort and analysis
+Data: TCGA-BRCA clinical metadata and VSD-transformed gene expression.
+Matched samples: 1,044 tumours with interpretable ER status.
+Comparison: 807 ER-positive versus 237 ER-negative tumours.
+Statistical analysis: Exploratory gene-wise Welch's t-tests, with Benjamini–Hochberg false-discovery-rate correction.
+Visualisation: PCA of expression profiles and a volcano plot of mean expression differences against statistical significance.
+Results
+
+The exploratory comparison identified 3,295 genes with FDR < 0.05 among 3,796 tested gene features. Established oestrogen-signalling markers, including ESR1 and PGR, showed higher expression in ER-positive tumours, providing a biologically plausible sanity check.
+
+
+Volcano plot: mean VSD expression difference (ER-positive minus ER-negative) versus −log10(FDR). The effect-size axis represents differences in transformed expression, not log2 fold changes.
+
+
+Principal component analysis of expression profiles, with samples coloured by ER status.
+
+* Reproducibility and limitations *
+
+The analysis was run using a local copy of the TCGA-BRCA clinical and expression data. Patient-level input files are not included in this repository. The expression values were supplied as VSD-transformed data and were not log-transformed again.
+
+This comparison is exploratory and does not adjust for clinical covariates. Statistical significance does not establish causality or predictive performance. This validation supports the biological plausibility of the expression-analysis workflow; it does not, by itself, validate the accuracy of the LLM's tool selection or explanations.
 
 ## Future development
 
